@@ -19,6 +19,7 @@
     <ion-card-header>
       Services
     </ion-card-header>
+    <button ion-button full (click)="testCmd()">Test Download</button>
 
     <ion-list>
       <ion-item *ngFor="let service of peripheral.services">
@@ -30,7 +31,10 @@
   <ion-card>
     <ion-card-header>
       Inhaler Info
+
     </ion-card-header>
+    <button ion-button full (click)="onFetchInhalerInfo()">Fetch Info</button>
+
     <ion-card-content>
       <pre>{{inhalerInfo | json }}</pre>
     </ion-card-content>
