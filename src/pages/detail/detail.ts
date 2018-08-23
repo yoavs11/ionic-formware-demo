@@ -131,12 +131,11 @@ export class DetailPage {
       this.peripheral = peripheral;
       this.bleProvider.createConnection(peripheral.id);
     });
+  }
 
+  async onFetchInhalerInfo() {
     this.inhalerInfo = await this.getInhalerInfo()
-    console.log({result: this.inhalerInfo});
     this.changeDetection.detectChanges();
-    await this.testCmd();
-
   }
 
   onDeviceDisconnected(peripheral) {
@@ -165,6 +164,14 @@ export class DetailPage {
       console.log('finished');
       const isUpdated = await this.updateFirmware();
       console.log({isUpdated})
+
+      let toast = this.toastCtrl.create({
+        message: isUpdated[0] === 0 ? 'Updated Duccessfully' : 'failed to update',
+        duration: 3000,
+        position: 'middle'
+      });
+      this.bleProvider.ngOnDestroy();
+      await toast.present();
     } catch (e) {
       alert(e.message);
     }
